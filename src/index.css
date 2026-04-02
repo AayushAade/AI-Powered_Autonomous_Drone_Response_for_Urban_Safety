@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian-dark: #0B0E14;
+  --color-obsidian-panel: rgba(11, 14, 20, 0.6);
+  --color-cyan-neon: #00E5FF;
+  --color-crimson-alert: #FF3B30;
+  --color-safe-green: #34C759;
+}
+
+:root {
+  --obsidian-dark: #0B0E14;
+  --obsidian-panel: rgba(11, 14, 20, 0.6);
+  --cyan-neon: #00E5FF;
+  --crimson-alert: #FF3B30;
+  --safe-green: #34C759;
+}
+
+body {
+  margin: 0;
+  background-color: var(--obsidian-dark);
+  color: #fff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tactical Map Enhancements */
+.tactical-tiles {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%) grayscale(100%);
+}
+
+.surveillance-zone-pulse {
+  animation: zone-pulse 4s infinite ease-in-out;
+}
+
+@keyframes zone-pulse {
+  0% { stroke-opacity: 0.3; stroke-width: 2; }
+  50% { stroke-opacity: 0.7; stroke-width: 4; }
+  100% { stroke-opacity: 0.3; stroke-width: 2; }
+}
+
+.nfz-warning {
+  animation: nfz-flash 2s infinite steps(2);
+}
+
+@keyframes nfz-flash {
+  0% { fill-opacity: 0.3; }
+  50% { fill-opacity: 0.5; }
+}
+
+.threat-pulse-strong {
+  animation: threat-pulse 1s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes threat-pulse {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+
+@utility glass-panel {
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(64px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+}
+
+@utility hud-pill {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(15, 23, 42, 0.4);
+  display: inline-flex;
+  align-items: center;
+}
+
+@utility hud-badge-cyan {
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: #22d3ee;
+  background-color: rgba(6, 182, 212, 0.05);
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+}
+
+@utility tactical-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+@utility hud-glow-cyan {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.15), inset 0 0 10px rgba(34, 211, 238, 0.05);
+}
+
+/* Monospace for data values only */
+.tabular-nums {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.01);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(34, 211, 238, 0.2);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.4);
+}
+
+/* Gauge Animation */
+.gauge-path {
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes scan {
+  from { top: 0; }
+  to { top: 100%; }
+}
+
+@utility digital-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+@utility tactical-scanline {
+  background: linear-gradient(to bottom, transparent, rgba(0, 229, 255, 0.1) 50%, transparent);
+  height: 20px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  animation: scan 3s linear infinite;
+  z-index: 5;
+  pointer-events: none;
+}
+
+
+@keyframes scan {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100vh); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s infinite;
+}
+
+/* Leaflet Tactical Refinements */
+.leaflet-container {
+  background: #020617 !important;
+}
+
+.leaflet-tile-pane {
+  opacity: 1.0;
+}
+
+.tactical-tiles {
+  /* Removed grayscale/invert filters to restore terrain visibility per BRINC LiveOps style */
+  filter: none;
+}
+
+.neon-path {
+  filter: drop-shadow(0px 0px 8px #00e5ff);
+  animation: dash-move 30s linear infinite;
+}
+
+.threat-pulse-strong {
+  animation: threat-ping-strong 1s ease-out infinite;
+  background-color: rgba(239, 68, 68, 0.8) !important;
+  box-shadow: 0 0 20px #ef4444;
+}
+
+@keyframes threat-ping-strong {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+.glow-line {
+  filter: drop-shadow(0 0 5px #22d3ee) drop-shadow(0 0 10px #22d3ee);
+  stroke-dasharray: 8, 12;
+  animation: dash-move 20s linear infinite;
+}
+
+@keyframes dash-move {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+.tactical-popup .leaflet-popup-content-wrapper {
+  background: rgba(15, 23, 42, 0.95) !important;
+  color: white !important;
+  border: 1px solid rgba(6, 182, 212, 0.4);
+  border-radius: 4px;
+  backdrop-filter: blur(8px);
+}
+
+.tactical-popup .leaflet-popup-tip {
+  background: rgba(15, 23, 42, 0.95) !important;
+}
+
+.custom-tactical-icon {
+  background: none !important;
+  border: none !important;
+}
+
+/* Threat Pulse for Anomalies */
+@keyframes threat-ping {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+
+.threat-pulse {
+  animation: threat-ping 1.5s ease-out infinite;
+  background-color: rgba(244, 63, 94, 0.6) !important;
+}
+
+/* Tactical Data Labels (Permanent Tooltips) */
+.leaflet-tooltip.tactical-tooltip {
+  background: #0f172a !important;
+  border: 1px solid #06b6d4 !important;
+  color: #06b6d4 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  padding: 4px 10px !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+}
+
+/* Remove Leaflet Tooltip Pointers/Arrows */
+.leaflet-tooltip-left.tactical-tooltip::before,
+.leaflet-tooltip-right.tactical-tooltip::before,
+.leaflet-tooltip-top.tactical-tooltip::before,
+.leaflet-tooltip-bottom.tactical-tooltip::before {
+  display: none !important;
+  border: none !important;
+}
+
+.geofence-circle {
+  transition: all 1s ease-in-out;
+  stroke: rgba(34, 211, 238, 0.3) !important;
+}
